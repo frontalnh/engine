@@ -8,7 +8,7 @@
 
 In it-chain core engine, the consensus is made by PBFT algorithm.
 
-![](../doc/images/consensus-PBFT.png)
+![](../../doc/images/consensus-PBFT.png)
 
 The following is a brief explanation of the procedure of PBFT consensus algorithm
 
@@ -58,6 +58,21 @@ Until the block is confirmed, the commit message should be saved in commit messa
 5. If the number of received prepare messages is equal to or greater than "1/3 of representatives + 1", validates the block in that message. Then, the representative sends the commit messages to all other representatives.
 6. If the number of received commit messages is equal to or greater than "1/3 of representatives + 1", confirms the block.
 7. Removes the finished consensus.
+
+## Elect Leader With RAFT
+
+The consensus about who would be a leader was implemented with RAFT algorithm.
+
+With RAFT algorithms every node in the network can have the same leader
+
+### Procedure detail of Leader Election Algorithm with RAFT
+
+1. Start random timeout function 150ms ~ 300ms
+2. Send message having `RequestVoteProtocol` from timed out node to other nodes and alter state to `candidate`
+3. If node receives message by `RequestVoteProtocol` before time out, answers with message by `VoteLeaderProtocol` with it's own leader info, reset timeout function
+4. If node in the state of `candidate` receives messages with same leader by `VoteLeaderProtocol` as many as the number of nodes, update itself as leader and tell every node that leader has changed
+
+
 
 ## The kinds of PBFT consensus messages
 

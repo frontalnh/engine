@@ -40,12 +40,6 @@ follows steps below
 1. Check if disconnected node is a leader when `ConnectionDisconnectedEvent` occurs
 2. elect leader
 
-**Leader Election Algorithm with RAFT**
-1. Start random timeout function 150ms ~ 300ms
-2. Send message having `RequestVoteProtocol` from timed out node to other nodes and alter state to `candidate`
-3. If node receives message by `RequestVoteProtocol` before time out, answers with message by `VoteLeaderProtocol` with it's own leader info, reset timeout function
-4. If node in the state of `candidate` receives messages with same leader by `VoteLeaderProtocol` as many as the number of nodes, update itself as leader and tell every node that leader has changed
-
 
 ## General node Disconnected Scenario
 <p align="center"><img src="../doc/images/NodeDisconnectedScenario.png" width="450px"></p>
