@@ -18,7 +18,6 @@ package txpool
 
 import (
 	"time"
-
 	"github.com/rs/xid"
 )
 
@@ -32,16 +31,22 @@ type TxData struct {
 	Signature []byte
 }
 
-//Aggregate root must implement aggregate interface
+/*
+* Aggregate root must implement aggregate interface
+* The transaction, as the word itself implies is unit of transaction in the Blockchain
+* it represents when and who made the transaction in blockchain and contains the id of
+* icode which is a Decentralized application in it-chain
+* and the name of the function which included in icode and matching arguments
+*/
 type Transaction struct {
 	ID        TransactionId
 	TimeStamp time.Time
 	Jsonrpc   string
-	ICodeID   string
-	Function  string
-	Args      []string
-	Signature []byte
-	PeerID    string
+	ICodeID   string // The ID of the icode
+	Function  string // The name of the function in Icode
+	Args      []string // The arguments are which should be passed to function as parameters
+	Signature []byte // The signature can be generated with the private key of the peer
+	PeerID    string // The id of the peer who executed this transaction
 }
 
 func CreateTransaction(publisherId string, txData TxData) (Transaction, error) {

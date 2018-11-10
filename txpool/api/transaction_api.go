@@ -102,7 +102,7 @@ func (t TransactionApi) SendLeaderTransaction(engineMode string) error {
 			return nil
 		}
 
-		return t.transferService.SendLeaderTransactions()
+		return t.transferService.SendTransactionsToLeader()
 
 	default:
 		return nil

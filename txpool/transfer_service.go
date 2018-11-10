@@ -42,7 +42,8 @@ func NewTransferService(txpoolRepository TransactionRepository, leaderRepository
 	}
 }
 
-func (ts TransferService) SendLeaderTransactions() error {
+// This method is used to send transactions to the leader
+func (ts TransferService) SendTransactionsToLeader() error {
 
 	ts.Lock()
 	defer ts.Unlock()
@@ -72,7 +73,7 @@ func (ts TransferService) SendLeaderTransactions() error {
 
 	ts.clearTransactions(transactions)
 
-	iLogger.Info(nil, "[Txpool] Transaction Has Been Sent To Leader")
+	iLogger.Info(nil, "[Txpool] Transaction has been sent to the leader")
 
 	return nil
 }

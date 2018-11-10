@@ -19,8 +19,8 @@ package txpool
 import (
 	"sync"
 
-	"github.com/it-chain/engine/common/command"
 	"github.com/it-chain/iLogger"
+	"github.com/it-chain/engine/common/command"
 )
 
 type BlockProposalService struct {
@@ -39,6 +39,13 @@ func NewBlockProposalService(txpoolRepository TransactionRepository, eventServic
 
 // todo do not delete transaction immediately
 // todo transaction will be deleted when block are committed
+/**
+This function creates a 'ProposeBlock' with existing transactions and proposes this block be created.
+The 'ProposeBlock' is sent to consensus component and the consensus process is made to create Block
+with given ProposedBlock
+
+After the block is proposed and created the transactions included in the proposed block will be cleared
+ */
 func (b BlockProposalService) ProposeBlock() error {
 
 	b.Lock()
